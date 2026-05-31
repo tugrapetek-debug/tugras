@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>TURASPS — Streetwear</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --t-black: #0a0a0a;
+      --t-white: #fafaf8;
+      --t-cream: #f2efe8;
+      --t-warm: #c8b89a;
+      --t-accent: #8a7560;
+      --t-muted: #9a9490;
+    }
+
+    html { font-size: 16px; }
+    body {
+      background: var(--t-white);
+      color: var(--t-black);
+      font-family: 'Jost', sans-serif;
+      width: 100vw;
+      overflow-x: hidden;
+    }
+
+    /* TICKER */
+    .ticker {
+      background: var(--t-warm);
+      overflow: hidden;
+      padding: 8px 0;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-block;
+      animation: tick 20s linear infinite;
+      font-size: 10px; font-weight: 300; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--t-black);
+    }
+    @keyframes tick { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 16px;
+      height: 52px;
+      border-bottom: 0.5px solid rgba(10,10,10,0.12);
+      background: var(--t-white);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 300; letter-spacing: 0.25em;
+    }
+    .nav-icons { display: flex; gap: 16px; }
+    .nav-icons i { font-size: 20px; opacity: 0.7; cursor: pointer; }
+
+    /* HERO */
+    .hero {
+      background: var(--t-black);
+      padding: 48px 24px 40px;
+      text-align: left;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        45deg, transparent, transparent 40px,
+        rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px
+      );
+    }
+    .hero-eyebrow {
+      font-size: 9px; font-weight: 300; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--t-warm);
+      margin-bottom: 14px; position: relative;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 60px; font-weight: 300; line-height: 1.0;
+      color: var(--t-white); margin-bottom: 12px;
+      letter-spacing: 0.02em; position: relative;
+    }
+    .hero-title em { font-style: italic; color: var(--t-warm); }
+    .hero-sub {
+      font-size: 10px; font-weight: 200; letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.4); margin-bottom: 28px;
+      text-transform: uppercase; position: relative;
+    }
+    .btn-primary {
+      display: inline-block; padding: 12px 32px;
+      border: 0.5px solid var(--t-warm);
+      font-size: 10px; font-weight: 300; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--t-white);
+      background: transparent; cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* SECTION BAŞLIK */
+    .section-head {
+      padding: 24px 16px 12px;
+    }
+    .section-label {
+      font-size: 9px; font-weight: 300; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--t-muted); margin-bottom: 4px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 300; letter-spacing: 0.03em;
+    }
+
+    /* KATEGORİLER */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(10,10,10,0.1);
+      margin: 0;
+    }
+    .cat-item {
+      background: var(--t-cream);
+      padding: 20px 16px 16px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      min-height: 110px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .cat-icon { font-size: 24px; color: var(--t-accent); margin-bottom: 8px; }
+    .cat-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-weight: 400; margin-bottom: 2px;
+    }
+    .cat-count {
+      font-size: 9px; font-weight: 300; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--t-muted);
+    }
+
+    /* ÜRÜNLER */
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(10,10,10,0.08);
+    }
+    .product-card {
+      background: var(--t-white);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .product-img {
+      aspect-ratio: 3/4;
+      background: var(--t-cream);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px; color: var(--t-muted);
+      position: relative;
+    }
+    .product-badge {
+      position: absolute; top: 8px; left: 8px;
+      font-size: 8px; font-weight: 300; letter-spacing: 0.15em;
+      text-transform: uppercase; padding: 3px 6px;
+      background: var(--t-black); color: var(--t-white);
+    }
+    .product-info { padding: 10px 12px 12px; }
+    .product-name { font-size: 11px; font-weight: 300; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .product-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-weight: 400; color: var(--t-accent);
+    }
+
+    /* BANNER */
+    .banner {
+      background: var(--t-black); color: var(--t-white);
+      padding: 40px 24px; text-align: center;
+    }
+    .banner-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-weight: 300; margin-bottom: 8px; letter-spacing: 0.04em;
+    }
+    .banner-title em { font-style: italic; color: var(--t-warm); }
+    .banner-sub {
+      font-size: 10px; font-weight: 200; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 24px;
+    }
+
+    /* ÖZELLİKLER */
+    .features {
+      display: flex; flex-direction: column;
+      border-top: 0.5px solid rgba(10,10,10,0.1);
+    }
+    .feat {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 20px;
+      border-bottom: 0.5px solid rgba(10,10,10,0.08);
+    }
+    .feat i { font-size: 22px; color: var(--t-accent); flex-shrink: 0; }
+    .feat-title { font-size: 12px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; }
+    .feat-desc { font-size: 11px; font-weight: 300; color: var(--t-muted); margin-top: 2px; }
+
+    /* FOOTER */
+    footer {
+      background: var(--t-black); color: rgba(255,255,255,0.4);
+      padding: 28px 20px; text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 300; letter-spacing: 0.25em;
+      color: var(--t-white); margin-bottom: 16px;
+    }
+    .footer-links {
+      display: flex; flex-wrap: wrap; gap: 16px;
+      justify-content: center; margin-bottom: 16px;
+    }
+    .footer-links a {
+      font-size: 9px; font-weight: 300; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      text-decoration: none; cursor: pointer;
+    }
+    .footer-copy { font-size: 9px; letter-spacing: 0.08em; }
+  </style>
+</head>
+<body>
+
+  <div class="ticker">
+    <span class="ticker-inner">
+      YENİ KOLEKSİYON 2025 &nbsp;·&nbsp; TURASPS STREETWEAR &nbsp;·&nbsp; ÜCRETSİZ KARGO 1500₺ ÜZERİ &nbsp;·&nbsp; SINIRLI EDİSYON &nbsp;·&nbsp; YENİ KOLEKSİYON 2025 &nbsp;·&nbsp; TURASPS STREETWEAR &nbsp;·&nbsp; ÜCRETSİZ KARGO 1500₺ ÜZERİ &nbsp;·&nbsp; SINIRLI EDİSYON &nbsp;·&nbsp;
+    </span>
+  </div>
+
+  <nav>
+    <div class="nav-logo">TURASPS</div>
+    <div class="nav-icons">
+      <i class="ti ti-search"></i>
+      <i class="ti ti-heart"></i>
+      <i class="ti ti-shopping-bag"></i>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <p class="hero-eyebrow">2025 İlkbahar — Yaz Koleksiyonu</p>
+    <h1 class="hero-title">Sokağın<br><em>Yeni Dili</em></h1>
+    <p class="hero-sub">Unisex Streetwear &nbsp;·&nbsp; Sınırsız Özgürlük</p>
+    <button class="btn-primary">Koleksiyonu Keşfet</button>
+  </div>
+
+  <div class="section-head">
+    <p class="section-label">Kategoriler</p>
+    <h2 class="section-title">Tarzını Seç</h2>
+  </div>
+
+  <div class="cat-grid">
+    <div class="cat-item">
+      <i class="ti ti-shirt cat-icon"></i>
+      <div class="cat-name">Üst Giyim</div>
+      <div class="cat-count">48 ürün</div>
+    </div>
+    <div class="cat-item">
+      <i class="ti ti-layout-bottombar cat-icon"></i>
+      <div class="cat-name">Alt Giyim</div>
+      <div class="cat-count">32 ürün</div>
+    </div>
+    <div class="cat-item">
+      <i class="ti ti-wind cat-icon"></i>
+      <div class="cat-name">Dış Giyim</div>
+      <div class="cat-count">24 ürün</div>
+    </div>
+    <div class="cat-item">
+      <i class="ti ti-backpack cat-icon"></i>
+      <div class="cat-name">Aksesuar</div>
+      <div class="cat-count">19 ürün</div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <p class="section-label">Öne Çıkanlar</p>
+    <h2 class="section-title">Yeni Gelenler</h2>
+  </div>
+
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img" style="background:#ede9e0;">
+        <div class="product-badge">Yeni</div>
+        <i class="ti ti-shirt"></i>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Oversize Crewneck</div>
+        <div class="product-price">1.290 ₺</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#e4e0d6;">
+        <div class="product-badge">Çok Satan</div>
+        <i class="ti ti-shirt"></i>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Baggy Kargo Pantolon</div>
+        <div class="product-price">1.890 ₺</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#dde2e4;">
+        <div class="product-badge">Sınırlı</div>
+        <i class="ti ti-wind"></i>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Coach Jacket</div>
+        <div class="product-price">2.490 ₺</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#e8e2d8;">
+        <i class="ti ti-shirt"></i>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Graphic Tee Vol.3</div>
+        <div class="product-price">790 ₺</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#d8dde0;">
+        <i class="ti ti-backpack"></i>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Mini Tote Bag</div>
+        <div class="product-price">650 ₺</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img" style="background:#dfe2d8;">
+        <div class="product-badge">Sale</div>
+        <i class="ti ti-shirt"></i>
+      </div>
+      <div class="product-info">
+        <div class="product-name">Wide Leg Denim</div>
+        <div class="product-price">1.490 ₺</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="banner">
+    <h2 class="banner-title">Her Mevsim,<br><em>Aynı Özgürlük</em></h2>
+    <p class="banner-sub">Sürdürülebilir kumaşlar · Sınırsız kombinler</p>
+    <button class="btn-primary">Daha Fazla Keşfet</button>
+  </div>
+
+  <div class="features">
+    <div class="feat">
+      <i class="ti ti-truck"></i>
+      <div>
+        <div class="feat-title">Ücretsiz Kargo</div>
+        <div class="feat-desc">1.500₺ ve üzeri tüm siparişlerde</div>
+      </div>
+    </div>
+    <div class="feat">
+      <i class="ti ti-refresh"></i>
+      <div>
+        <div class="feat-title">30 Gün İade</div>
+        <div class="feat-desc">Koşulsuz değişim & iade hakkı</div>
+      </div>
+    </div>
+    <div class="feat">
+      <i class="ti ti-shield-check"></i>
+      <div>
+        <div class="feat-title">Güvenli Ödeme</div>
+        <div class="feat-desc">SSL sertifikalı alışveriş</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">TURASPS</div>
+    <div class="footer-links">
+      <a href="#">Instagram</a>
+      <a href="#">İletişim</a>
+      <a href="#">Gizlilik</a>
+      <a href="#">Kargo</a>
+      <a href="#">SSS</a>
+    </div>
+    <div class="footer-copy">© 2025 TURASPS — Tüm hakları saklıdır.</div>
+  </footer>
+
+</body>
+</html>
